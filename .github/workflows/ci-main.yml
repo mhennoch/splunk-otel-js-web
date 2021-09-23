@@ -1,18 +1,17 @@
 name: Continuous Integration Main
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
 permissions: read-all
 
 jobs:
   saucelabs-integration-tests:
     runs-on: ubuntu-latest
     permissions: read-all
-    env:
-      BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
-      BROWSERSTACK_KEY: ${{ secrets.BROWSERSTACK_KEY }}
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [edge, ie11, safari, safari-10.1]
     steps:
       - name: Checkout
         uses: actions/checkout@v1
