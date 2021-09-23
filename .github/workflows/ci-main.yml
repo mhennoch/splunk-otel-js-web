@@ -20,6 +20,15 @@ jobs:
           restore-keys: npm-
       - run: npm ci
       - run: npm run compile
-      # - name: Run integration tests in Browserstack
-      #   run: node ./integration-tests/utils/browserstack.runner.js -e ${{ matrix.browser }} -c ./integration-tests/utils/browserstack.conf.js
-      #   timeout-minutes: 15
+      - name: Add to hosts file
+        run: echo "127.0.0.1 local.test" | sudo tee -a /etc/hosts
+      - name: Setup sauce connect
+        uses: saucelabs/sauce-connect-action@v2
+        with:
+            username: ${{ secrets.SAUCE_USERNAME }}
+            accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+            tunnelIdentifier: mhennoch-temp-github-action-tunnel
+            scVersion: 4.6.4          
+      - name: Run integration tests in Saucelabs
+        run: npm run test.saucelabs.us
+        timeout-minutes: 5

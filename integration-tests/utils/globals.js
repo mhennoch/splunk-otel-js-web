@@ -79,9 +79,15 @@ module.exports = {
     browser.globals.rumVersion = require('../../package.json').version;
     browser.globals.isBrowser = isBrowser.bind(null, browser);
 
+    // browser.globals.buildInstrumentationBackend = () => buildInstrumentationBackend({
+    //   enableHttps: browser.globals.enableHttps,
+    //   hostname: browser.globals.hostname,
+    // });
+
     browser.globals.buildInstrumentationBackend = () => buildInstrumentationBackend({
-      enableHttps: browser.globals.enableHttps,
-      hostname: browser.globals.hostname,
+      enableHttps: false,
+      hostname: 'local.test',
+      httpPort: 55001 
     });
 
     Object.assign(browser.globals, await buildBackendContext(browser));
