@@ -1,8 +1,5 @@
 name: Continuous Integration Main
-on:
-  workflow_dispatch:
-    branches:
-      - main
+on: workflow_dispatch
 permissions: read-all
 
 jobs:
