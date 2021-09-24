@@ -86,8 +86,7 @@ module.exports = {
 
     browser.globals.buildInstrumentationBackend = () => buildInstrumentationBackend({
       enableHttps: false,
-      hostname: 'local.test',
-      httpPort: 55001 
+      hostname: 'local.test'
     });
 
     Object.assign(browser.globals, await buildBackendContext(browser));
