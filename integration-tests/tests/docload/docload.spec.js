@@ -19,6 +19,9 @@ module.exports = {
   beforeEach: function(browser) {
     browser.globals.clearReceivedSpans();  
   },
+  after: function(browser) {
+    browser.customSauceLabsEnd();
+  },
   'documentFetch, resourceFetch, and documentLoad spans': async function(browser) {
     const url = browser.globals.getUrl('/docload/docload.ejs');
     await browser.url(url);

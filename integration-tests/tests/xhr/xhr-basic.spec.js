@@ -21,6 +21,9 @@ module.exports = {
   beforeEach: function (browser) {
     browser.globals.clearReceivedSpans();
   },
+  after: function(browser) {
+    browser.customSauceLabsEnd();
+  },
   'XHR request is registered': async function(browser) {
     await browser.url(browser.globals.getUrl('/xhr/views/xhr-basic.ejs'));
     const xhrSpan = await browser.globals.findSpan(span => span.tags['http.url'] === '/some-data');

@@ -16,6 +16,7 @@ limitations under the License.
 
 const { isBrowser } = require('./helpers');
 const { buildInstrumentationBackend } = require('../../utils/testBackendProvider');
+const SauceLabs = require('saucelabs');
 
 const GLOBAL_TEST_BUFFER_TIMEOUT = 20;
 const NETWORK_LATENCY_MARGIN = 2000;
@@ -35,7 +36,7 @@ async function findSpan(spans, testFn, accruedTime) {
 
   const foundSpan = spans.find(testFn);
   if (foundSpan) {
-    return foundSpan;
+    return foundSpan; 
   }
 
   return new Promise((resolve) => {
@@ -71,6 +72,30 @@ async function buildBackendContext(browser) {
   };
 }
 
+// async function customSauceLabsEnd() {
+
+//   // 2. Instantiate the module
+//   const myAccount = new SauceLabs.default({
+//       user: process.env.SAUCE_USERNAME,
+//       key: process.env.SAUCE_ACCESS_KEY,
+//       region: process.env.REGION === 'eu' ? 'eu' : 'us',
+//   });
+//   console.log('this', this)
+//   // 3a. Get the sessionId
+//   const sessionId = this.capabilities['webdriver.remote.sessionid'];
+//   // 3b. Get the jobName
+//   const jobName = this.currentTest.name;
+//   // 3c. Get the status
+//   const passed = this.currentTest.results.testcases[jobName].passed > 0;
+
+//   // 4. Update the status in Sauce Labs
+//   await myAccount.updateJob(process.env.SAUCE_USERNAME, sessionId, {passed: passed});
+
+//   // 5. Tell Nighwatch that we are done
+//   return this.end();
+// };
+
+
 module.exports = {
   buildBackendContext,
 
@@ -85,7 +110,7 @@ module.exports = {
     // });
 
     browser.globals.buildInstrumentationBackend = () => buildInstrumentationBackend({
-      enableHttps: false,
+      enableHttps: browser.globals.enableHttps,
       hostname: 'local.test'
     });
 
@@ -164,6 +189,7 @@ module.exports = {
 
   // This will be run after each test suite is finished
   afterEach: async function(browser, done) {
+    // console.log('after each', browser)
     try {
       console.log('Closing dev server.');
       if (browser.globals._closeBackend) {
@@ -174,6 +200,7 @@ module.exports = {
       done();
     }
   },
+
 
   GLOBAL_TEST_BUFFER_TIMEOUT,
 };

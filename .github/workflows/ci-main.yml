@@ -10,13 +10,14 @@ jobs:
     env:
       SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
       SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+      SAUCE_TUNNEL_ID: ${{ secrets.SAUCE_TUNNEL_ID }}
     steps:
       - name: Setup sauce connect
         uses: saucelabs/sauce-connect-action@v2.0.0
         with:
             username: ${{ secrets.SAUCE_USERNAME }}
             accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-            tunnelIdentifier: mhennoch-temp-github-action-tunnel
+            tunnelIdentifier: ${{ secrets.SAUCE_TUNNEL_ID }}
             scVersion: 4.6.4
       - name: Checkout
         uses: actions/checkout@v1
@@ -33,6 +34,6 @@ jobs:
       - run: npm run compile
       - name: Add to hosts file
         run: echo "127.0.0.1 local.test" | sudo tee -a /etc/hosts          
-      - name: Run integration tests in Saucelabs
-        run: npm run test.saucelabs.us
-        timeout-minutes: 5
+      # - name: Run integration tests in Saucelabs
+      #   run: npm run test.saucelabs.us
+      #   timeout-minutes: 5

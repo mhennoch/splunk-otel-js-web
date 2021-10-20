@@ -15,6 +15,9 @@ limitations under the License.
 */
 
 module.exports = {
+  after: function(browser) {
+    browser.customSauceLabsEnd();
+  },
   'XHR request can be ignored': async function(browser) {
     await browser.url(browser.globals.getUrl('/xhr/views/xhr-ignored.ejs'));
     
