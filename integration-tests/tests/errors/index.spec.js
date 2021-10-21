@@ -20,6 +20,9 @@ module.exports = {
   beforeEach: function (browser) {
     browser.globals.clearReceivedSpans();
   },
+  after: function(browser) {
+    browser.customSauceLabsEnd();
+  },
   'DOM resource 4xx': async function(browser) {
     await browser.url(browser.globals.getUrl('/errors/views/resource-4xx.ejs'));
 

@@ -42,8 +42,12 @@ async function runTest(browser, filename, extraChecks) {
 }
 
 module.exports = {
+  '@disabled': true,
   afterEach: function(browser) {
     browser.globals.clearReceivedSpans();
+  },
+  after: function(browser) {
+    browser.customSauceLabsEnd();
   },
   setTimeout: async function (browser) {
     await runTest(browser, '/context/set-timeout.ejs');

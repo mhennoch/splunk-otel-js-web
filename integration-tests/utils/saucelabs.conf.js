@@ -4,11 +4,11 @@ const build = `Nightwatch Desktop Web build-${process.env.DATE}`;
 // More information about the configuration file can be found here
 // https://nightwatchjs.org/gettingstarted/configuration/
 module.exports = {
-    src_folders: [
-        join(process.cwd(), 'integration-tests/tests/errors'),
-        join(process.cwd(), 'integration-tests/tests/context'),
-    ],
-    // src_folders: ['integration-tests/tests'],
+	// src_folders: [
+	// 	join(process.cwd(), 'integration-tests/tests/errors'),
+	// 	join(process.cwd(), 'integration-tests/tests/context'),
+	// ],
+	src_folders: ['integration-tests/tests'],
     // page_objects_path: [join(process.cwd(), 'tests/page-objects/')],
     // See `/tests/custom-commands/customSauceLabsEnd.js` for the logic
     globals_path: join(__dirname, 'globals.js'),
@@ -62,7 +62,7 @@ module.exports = {
         sauceChrome: {
             extends: 'sauceLabs',
             desiredCapabilities: {
-                browserName: 'googlechrome',
+                browserName: 'chrome',
                 platform: 'Windows 10',
                 version: 'latest',
             },

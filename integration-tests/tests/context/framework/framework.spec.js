@@ -31,6 +31,9 @@ async function runTest(browser, filename) {
 }
 
 module.exports = {
+  after: function(browser) {
+    browser.customSauceLabsEnd();
+  },
   'Vue 2 with async': async function(browser) {
     runTest(browser, '/context/framework/vue2.ejs');
   },
