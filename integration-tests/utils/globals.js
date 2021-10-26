@@ -72,30 +72,6 @@ async function buildBackendContext(browser) {
   };
 }
 
-// async function customSauceLabsEnd() {
-
-//   // 2. Instantiate the module
-//   const myAccount = new SauceLabs.default({
-//       user: process.env.SAUCE_USERNAME,
-//       key: process.env.SAUCE_ACCESS_KEY,
-//       region: process.env.REGION === 'eu' ? 'eu' : 'us',
-//   });
-//   console.log('this', this)
-//   // 3a. Get the sessionId
-//   const sessionId = this.capabilities['webdriver.remote.sessionid'];
-//   // 3b. Get the jobName
-//   const jobName = this.currentTest.name;
-//   // 3c. Get the status
-//   const passed = this.currentTest.results.testcases[jobName].passed > 0;
-
-//   // 4. Update the status in Sauce Labs
-//   await myAccount.updateJob(process.env.SAUCE_USERNAME, sessionId, {passed: passed});
-
-//   // 5. Tell Nighwatch that we are done
-//   return this.end();
-// };
-
-
 module.exports = {
   buildBackendContext,
 
@@ -120,7 +96,15 @@ module.exports = {
       await browser.execute(function (hidden) {
         Object.defineProperty(document, 'hidden', { value: hidden, configurable: true });
         Object.defineProperty(document,'visibilityState', { value: hidden ? 'hidden': 'visible', configurable: true });
-        window.dispatchEvent(new Event('visibilitychange'));
+        let e;
+        try {
+          e = new Event('visibilitychange');
+        } catch (err) {
+          // IE
+          e = document.createEvent('Event');
+          e.initEvent('visibilitychange', false, false);
+        }
+        window.dispatchEvent(e);
       }, [visible]);
     };
 

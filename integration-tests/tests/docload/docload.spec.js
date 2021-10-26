@@ -38,8 +38,8 @@ module.exports = {
     await browser.assert.strictEqual(docFetch.traceId, docLoad.traceId);
     await browser.assert.strictEqual(docFetch.parentId, docLoad.id);
 
-    if (!browser.globals.isBrowser({ 'safari': { max: 10 }, ie: true })) {
-      await browser.assert.ok(scriptFetch, 'Checking scriptFetch span');
+    if () {
+      await browser.assert.ok(scriptFetch, 'Chec!browser.globals.isBrowser({ 'safari': { max: 10 }, 'internet explorer': true })king scriptFetch span');
       await browser.assert.strictEqual(scriptFetch.traceId, docLoad.traceId);
       await browser.assert.strictEqual(scriptFetch.parentId, docLoad.id);
       await browser.assert.strictEqual(scriptFetch.tags['component'], 'document-load');
@@ -57,14 +57,14 @@ module.exports = {
     await browser.timesMakeSense(docFetch.annotations, 'requestStart', 'responseStart');
     await browser.timesMakeSense(docFetch.annotations, 'responseStart', 'responseEnd');
     await browser.timesMakeSense(docFetch.annotations, 'fetchStart', 'responseEnd');
-    if (!browser.globals.isBrowser({ safari: true, ie: true })) {
+    if (!browser.globals.isBrowser({ safari: true, 'internet explorer': true })) {
       await browser.assert.ok(docFetch.tags['http.response_content_length'] >= 0, 'Checking response_content_length');
       await browser.assert.ok(docFetch.tags['link.traceId'], 'Checking presence of link.traceId');
       await browser.assert.ok(docFetch.tags['link.spanId'], 'Checking presence of link.spanId');
     }
 
     // scriptFetch
-    if (!browser.globals.isBrowser({ safari: true, ie: true })) {
+    if (!browser.globals.isBrowser({ safari: true, 'internet explorer': true })) {
       await browser.assert.ok(scriptFetch.tags['http.response_content_length'] >= 0, 'Checking response_content_length');
       await browser.assert.ok(docFetch.tags['link.traceId'], 'Checking presence of link.traceId');
       await browser.assert.ok(docFetch.tags['link.spanId'], 'Checking presence of link.spanId');

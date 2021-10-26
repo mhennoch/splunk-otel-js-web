@@ -1,14 +1,15 @@
 const {join} = require('path');
-const build = `Nightwatch Desktop Web build-${process.env.DATE}`;
+const build = `Nightwatch Desktop Web build-${ new Date().getTime() }`;
 
 // More information about the configuration file can be found here
 // https://nightwatchjs.org/gettingstarted/configuration/
 module.exports = {
-	// src_folders: [
-	// 	join(process.cwd(), 'integration-tests/tests/errors'),
-	// 	join(process.cwd(), 'integration-tests/tests/context'),
-	// ],
-	src_folders: ['integration-tests/tests'],
+	src_folders: [
+		join(process.cwd(), 'integration-tests/tests/visibility'),
+		join(process.cwd(), 'integration-tests/tests/cookies'),
+		join(process.cwd(), 'integration-tests/tests/context'),
+	],
+    // src_folders: ['integration-tests/tests'],
     // page_objects_path: [join(process.cwd(), 'tests/page-objects/')],
     // See `/tests/custom-commands/customSauceLabsEnd.js` for the logic
     globals_path: join(__dirname, 'globals.js'),
@@ -28,6 +29,8 @@ module.exports = {
             username: process.env.SAUCE_USERNAME,
             access_key: process.env.SAUCE_ACCESS_KEY,
             desiredCapabilities: {
+                acceptSslCerts: true,
+                acceptInsecureCerts: false,
                 build,
                 tunnelIdentifier: process.env.SAUCE_TUNNEL_ID,
                 screenResolution: '1600x1200',
@@ -59,7 +62,7 @@ module.exports = {
         },
 
         // Sauce Labs capabilities
-        sauceChrome: {
+        chrome: {
             extends: 'sauceLabs',
             desiredCapabilities: {
                 browserName: 'chrome',
@@ -67,7 +70,7 @@ module.exports = {
                 version: 'latest',
             },
         },
-        sauceFirefox: {
+        firefox: {
             extends: 'sauceLabs',
             desiredCapabilities: {
                 browserName: 'firefox',
@@ -75,20 +78,29 @@ module.exports = {
                 version: 'latest',
             },
         },
-        sauceIE: {
+        ie11: {
             extends: 'sauceLabs',
             desiredCapabilities: {
                 browserName: 'internet explorer',
-                platform: 'Windows 10',
-                version: 'latest',
+                browserVersion: '11',
+                platformName: 'Windows 10',
             },
         },
-        sauceEdge: {
+        edge: {
             extends: 'sauceLabs',
             desiredCapabilities: {
                 browserName: 'MicrosoftEdge',
                 platform: 'Windows 10',
                 version: 'latest',
+            },
+        },
+        safari: {
+            extends: 'sauceLabs',
+            desiredCapabilities: {
+                browserName: 'safari',
+                browserVersion: '13',
+                'sauce:options': {
+                }
             },
         },
     },

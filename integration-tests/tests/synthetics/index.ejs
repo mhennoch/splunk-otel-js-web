@@ -16,7 +16,7 @@
   <script>scenarioDisplay.innerHTML = scenario.innerHTML;</script>
 
   <script>
-    setTimeout(() => {
+    setTimeout(function () {
       SplunkRum.provider.getTracer('guard').startSpan('guard-span').end();
     }, 100);
   </script>

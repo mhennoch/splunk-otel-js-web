@@ -66,7 +66,7 @@ module.exports = {
     await browser.globals.assertNoErrorSpans();
   },
   setImmediate: function (browser) {
-    if (!isBrowser(browser, 'ie')) {
+    if (!isBrowser(browser, 'internet explorer')) {
       // Only exists in IE
       return Promise.resolve();
     }
@@ -74,7 +74,7 @@ module.exports = {
     return runTest(browser, '/context/set-immediate.ejs');
   },
   'promise constructor': async function (browser) {
-    if (isBrowser(browser, 'ie')) {
+    if (isBrowser(browser, 'internet explorer')) {
       // Doesn't exist natively in IE
       return Promise.resolve();
     }
@@ -97,7 +97,7 @@ module.exports = {
     return true;
   },
   'fetch then': function (browser) {
-    if (isBrowser(browser, 'ie')) {
+    if (isBrowser(browser, 'internet explorer')) {
       // Doesn't exist natively in IE
       return Promise.resolve();
     }

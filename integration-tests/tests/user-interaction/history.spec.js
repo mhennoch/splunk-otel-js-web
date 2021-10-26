@@ -28,7 +28,7 @@ module.exports = {
     await browser.assert.ok(!!navigationSpan, 'Checking navigation span presence.');
 
     await browser.assert.strictEqual(navigationSpan.tags['component'], 'user-interaction');
-    if (!isBrowser(browser, 'ie')) {
+    if (!isBrowser(browser, 'internet explorer')) {
       await browser.assert.strictEqual(navigationSpan.tags['prev.href'], startUrl);
     }
     await browser.assert.strictEqual(navigationSpan.tags['location.href'], startUrl + '#another-page');

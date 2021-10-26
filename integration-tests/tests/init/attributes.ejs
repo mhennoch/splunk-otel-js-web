@@ -22,7 +22,7 @@
 		ourTracer.startSpan('attributes-reset').end();
 	}
 
-	SplunkRum._experimental_addEventListener('global-attributes-changed', (event) => {
+	SplunkRum._experimental_addEventListener('global-attributes-changed', function(event) {
 		ourTracer.startSpan('attributes-changed').setAttribute(
 			'payload',
 			JSON.stringify(event.payload)

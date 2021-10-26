@@ -16,10 +16,7 @@ limitations under the License.
 
 module.exports = {
   'traceId should be attached to documentFetch span if Server-Timing was sent': async function(browser) {
-    // TODO: restructure into a proper feature support matrix
-    const UNSUPPORTED_BROWSERS = ['Safari', 'IE', 'iPhone'];
-    const currentBrowser = browser.options.desiredCapabilities.browserName;
-    if (UNSUPPORTED_BROWSERS.includes(currentBrowser)) {
+    if (browser.globals.isBrowser({ 'safari': true, 'internet explorer': true })) {
       return;
     }
 
